@@ -1,0 +1,5 @@
+pybaseball==2.2.2
+pandas
+numpy
+plotly
+streamlit
