@@ -60,11 +60,29 @@ def plot_release_points(pitcher_name, pitch_grouped, player_grouped, color_map):
             name=pitch_name
         ))
 
-        # Add error bars for standard deviation
+        # Add error bars for standard deviation across all axes
         fig.add_trace(go.Scatter3d(
             x=[row['release_pos_x_mean'] - row['release_pos_x_std'], row['release_pos_x_mean'] + row['release_pos_x_std']],
             y=[row['release_pos_y_mean']] * 2,
             z=[row['release_pos_z_mean']] * 2,
+            mode='lines',
+            line=dict(color=color, width=2),
+            showlegend=False
+        ))
+
+        fig.add_trace(go.Scatter3d(
+            x=[row['release_pos_x_mean']] * 2,
+            y=[row['release_pos_y_mean'] - row['release_pos_y_std'], row['release_pos_y_mean'] + row['release_pos_y_std']],
+            z=[row['release_pos_z_mean']] * 2,
+            mode='lines',
+            line=dict(color=color, width=2),
+            showlegend=False
+        ))
+
+        fig.add_trace(go.Scatter3d(
+            x=[row['release_pos_x_mean']] * 2,
+            y=[row['release_pos_y_mean']] * 2,
+            z=[row['release_pos_z_mean'] - row['release_pos_z_std'], row['release_pos_z_mean'] + row['release_pos_z_std']],
             mode='lines',
             line=dict(color=color, width=2),
             showlegend=False
