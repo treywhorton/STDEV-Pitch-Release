@@ -97,9 +97,16 @@ st.title("Pitcher Release Points Analysis")
 
 st.write("Analyze release points for pitchers based on Statcast data.")
 
-# Fetch data
-with st.spinner("Fetching data... This may take a while."):
-    data = fetch_season_data("2024-03-20", "2024-09-19", chunk_size_days=7)
+# Add date input fields for smaller ranges
+start_date = st.date_input("Start Date", value=datetime(2024, 3, 20))
+end_date = st.date_input("End Date", value=datetime(2024, 3, 27))
+
+if start_date < end_date:
+    with st.spinner("Fetching data... This may take a while."):
+        data = fetch_season_data(start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"), chunk_size_days=3)
+else:
+    st.error("End date must be after the start date.")
+    st.stop()
 
 if data.empty:
     st.warning("No data available.")
